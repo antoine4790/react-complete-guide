@@ -1,4 +1,5 @@
 import React, { Component } from 'react'; 
+//import css géré par Webpack
 import './App.css';
 import Person from './Person/Person';
 
