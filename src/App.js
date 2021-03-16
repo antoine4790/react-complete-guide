@@ -14,6 +14,8 @@ class App extends Component {
         otherStateparameter : "some value"
     }
 
+    
+
     switchNameHandler = (newName) => {
         //console.log("was clicked");
         //ne pas faire ca this.state.persons[1].name="Godefroy";
@@ -45,10 +47,24 @@ class App extends Component {
 
     
     render() {
+
+        const buttonInjectedCssInlineStyle =
+            {
+                border : '1px solid blue',//bordure du bouton
+                padding : '8px',
+                backgroundColor : 'white',
+                font : 'inherit',
+                cursor : 'pointer'
+                
+            };
+        
         return (
             <div className="App">
               <h1>Hi i'm a React App</h1>
-              <button onClick={this.switchNameHandler.bind(this,"Jacquouille!")}>Switch Name</button>
+              <button
+                //Inline Css
+                style={buttonInjectedCssInlineStyle}
+                onClick={this.switchNameHandler.bind(this,"Jacquouille!")}>Switch Name</button>
               <Person name={this.state.persons[0].name} age={this.state.persons[0].age} click={this.switchNameHandler.bind(this,'Jacquouillet')} changed={this.changeNameHandler}>je ne sais pas quand je suis né</Person>
               <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >ne me nomme plus Messire mais Cousin Hubert</Person>
               <Person name={this.state.persons[2].name} age={this.state.persons[2].age} >Qu'est ce que c'est que ce bin's !???</Person>
