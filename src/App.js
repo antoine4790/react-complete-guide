@@ -11,7 +11,8 @@ class App extends Component {
             {name :"Godefroy Comte de Montmirail d'Apremont et Papincourt fils d'Aldebert de Malfete et Thibaude de  Montfaucon", age : "1000"},
             {name: "Jacquard", age : "35"}
         ],
-        otherStateparameter : "some value"
+        otherStateparameter : "some value",
+        isdisplayed: false
     }
 
     
@@ -45,10 +46,17 @@ class App extends Component {
                      )
     }
 
+    //function qui affiche ou masque les composants person
+    togglePersonsHandler = () => {
+        const switchButton = this.state.isdisplayed;
+        this.setState({
+            isdisplayed : !switchButton
+        })
+    }
     
     render() {
 
-        const buttonInjectedCssInlineStyle =
+        const button1InjectedCssInlineStyle =
             {
                 border : '1px solid blue',//bordure du bouton
                 padding : '8px',
@@ -57,17 +65,50 @@ class App extends Component {
                 cursor : 'pointer'
                 
             };
+
+        const button2InjectedCssInlineStyle =
+            {
+                border : '1px solid red',//bordure du bouton
+                padding : '8px',
+                backgroundColor : 'white',
+                font : 'inherit',
+                cursor : 'pointer'
+                
+            };
+
+        let persons = null;
+
+        //affichage conditionnel
+        //the javascript way of using conditional display of components
+        if (this.state.isdisplayed)
+        {
+            persons = (
+                <div>
+                  <Person name={this.state.persons[0].name}
+                          age={this.state.persons[0].age}
+                          click={this.switchNameHandler.bind(this,'Jacquouillet')}
+                          changed={this.changeNameHandler}>je ne sais pas quand je suis né</Person>
+                  <Person name={this.state.persons[1].name}
+                          age={this.state.persons[1].age} >ne me nomme plus Messire mais Cousin Hubert</Person>
+                  <Person name={this.state.persons[2].name}
+                          age={this.state.persons[2].age} >Qu'est ce que c'est que ce bin's !???</Person>
+                </div>
+            )
+        }
         
         return (
             <div className="App">
               <h1>Hi i'm a React App</h1>
               <button
-                //Inline Css
-                style={buttonInjectedCssInlineStyle}
+            //Inline Css
+                style={button1InjectedCssInlineStyle}
                 onClick={this.switchNameHandler.bind(this,"Jacquouille!")}>Switch Name</button>
-              <Person name={this.state.persons[0].name} age={this.state.persons[0].age} click={this.switchNameHandler.bind(this,'Jacquouillet')} changed={this.changeNameHandler}>je ne sais pas quand je suis né</Person>
-              <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >ne me nomme plus Messire mais Cousin Hubert</Person>
-              <Person name={this.state.persons[2].name} age={this.state.persons[2].age} >Qu'est ce que c'est que ce bin's !???</Person>
+              
+              <button style={button2InjectedCssInlineStyle}
+                      onClick={this.togglePersonsHandler}>Toggle Persons</button>
+              
+              {persons}
+              
             </div>
         );
 
